@@ -41,7 +41,7 @@ public class UserService {
     public UserResponseDto update(UpdateUserDto updateUserDto) {
         if (roleService.findById(updateUserDto.getRoleId()) != null) {
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            findById(updateUserDto.getId(), updateUserDto.getCountryId());
+            findById(updateUserDto.getId());
             UserEntity userEntity = UserEntity.builder().build().from(updateUserDto);
             userEntity.setPassword(passwordEncoder.encode(updateUserDto.getPassword()));
             userRepository.save(userEntity);
@@ -50,7 +50,7 @@ public class UserService {
         return null;
     }
 
-    public UserResponseDto findById(Long id, Long countryId) {
+    public UserResponseDto findById(Long id) {
         UserEntity userEntity = userRepository.findById(id).orElseThrow(() -> new NotFoundException("userId does not exist"));
         return userEntity.toDto();
     }

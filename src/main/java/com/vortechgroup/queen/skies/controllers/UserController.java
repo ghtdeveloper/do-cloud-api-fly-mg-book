@@ -10,7 +10,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,9 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
-@RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "api/v1.0/api/fly/user", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "api/v1.0/api/fly/users", produces = MediaType.APPLICATION_JSON_VALUE)
 public record UserController(UserService userService) {
 
     @PostMapping(value = "/save")
@@ -36,10 +34,10 @@ public record UserController(UserService userService) {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.userService.update(updateUserDto));
     }
 
-    @GetMapping(value = "/{id}/{countryId}")
+    @GetMapping(value = "/{id}")
     @Operation(summary = "Search by user id", description = "Search by user id")
-    public ResponseEntity<UserResponseDto> findById(@NotNull @RequestHeader(HttpHeaders.AUTHORIZATION) String token, @NotNull @PathVariable(name = "id") Long id, @NotNull @PathVariable(name = "countryId") Long countryId) {
-        return ResponseEntity.status(HttpStatus.OK).body(this.userService.findById(id, countryId));
+    public ResponseEntity<UserResponseDto> findById(@NotNull @RequestHeader(HttpHeaders.AUTHORIZATION) String token, @NotNull @PathVariable(name = "id") Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.userService.findById(id));
     }
 
     @GetMapping(value = "/detail")
