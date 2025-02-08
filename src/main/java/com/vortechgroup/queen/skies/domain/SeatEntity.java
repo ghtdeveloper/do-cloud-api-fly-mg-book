@@ -24,14 +24,14 @@ public class SeatEntity implements TransformFrom<CreateSeatDto, SeatEntity>, ToD
     @Column(name = "id", updatable = false)
     private Long id;
 
-    @Column(name = "seatNumber", updatable = false)
+    @Column(name = "seat_number", updatable = false)
     private String seatNumber;
 
     @ManyToOne
     @JoinColumn(name = "flight_id", nullable = false)
     private FlightEntity flight;
 
-    @Column(nullable = false)
+    @Column(name = "available", nullable = false)
     private boolean available = true;
 
     @Override

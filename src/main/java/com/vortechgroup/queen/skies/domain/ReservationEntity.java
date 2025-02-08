@@ -17,7 +17,7 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
-@Table(name = "tb_reserve", schema = "core")
+@Table(name = "tb_reservation", schema = "core")
 public class ReservationEntity implements TransformFrom<CreateReservationDto, ReservationEntity>, ToDTO<ReservationResponseDto> {
 
     @Id

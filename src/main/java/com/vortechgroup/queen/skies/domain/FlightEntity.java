@@ -7,7 +7,6 @@ import com.vortechgroup.queen.skies.utils.ToDTO;
 import com.vortechgroup.queen.skies.utils.TransformFrom;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class FlightEntity implements TransformFrom<CreateFlightDto, FlightEntity
     @Column(name = "id", updatable = false)
     private Long id;
 
-    @Column(name = "flightNumber", updatable = false)
+    @Column(name = "flight_number", updatable = false)
     private String flightNumber;
 
     @Column(name = "origin", updatable = false)
@@ -36,10 +35,10 @@ public class FlightEntity implements TransformFrom<CreateFlightDto, FlightEntity
     @Column(name = "destination", updatable = false)
     private String destination;
 
-    @Column(name = "departureTime", updatable = false)
+    @Column(name = "departure_time", updatable = false)
     private String departureTime;
 
-    @Column(name = "arrivalTime", updatable = false)
+    @Column(name = "arrival_time", updatable = false)
     private String arrivalTime;
 
     @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
