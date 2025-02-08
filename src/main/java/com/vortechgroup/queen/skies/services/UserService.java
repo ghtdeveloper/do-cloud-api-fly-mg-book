@@ -56,7 +56,7 @@ public class UserService {
     }
 
     public UserResponseDto findByName(String userName) {
-        UserEntity userEntity = userRepository.findByName(userName).orElseThrow(() -> new NotFoundException("username does not exist"));
+        UserEntity userEntity = userRepository.findByUsername(userName).orElseThrow(() -> new NotFoundException("username does not exist"));
         return userEntity.toDto();
     }
 

@@ -32,7 +32,7 @@ public class SeatEntity implements TransformFrom<CreateSeatDto, SeatEntity>, ToD
     private FlightEntity flight;
 
     @Column(name = "available", nullable = false)
-    private boolean available = true;
+    private Boolean available;
 
     @Override
     public SeatResponseDto toDto() {

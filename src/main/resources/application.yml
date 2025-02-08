@@ -22,7 +22,7 @@ server:
       enabled: false
 spring:
   datasource:
-    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/myDB:jdbc:postgresql://localhost:5432/fly_mg_Book}
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/fly_mg_Book}
     password: ${DATASOURCE_PASS:HolaMundo}
     username: ${DATASOURCE_USER:postgres}
     hikari:

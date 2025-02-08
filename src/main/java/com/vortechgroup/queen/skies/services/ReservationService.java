@@ -54,7 +54,7 @@ public class ReservationService {
         }
         FlightEntity flight = flightEntityOptional.get();
         Optional<SeatEntity> seatEntityOptional = seatRepository.findBySeatNumberAndFlight(createReservationDto.getSeatNumber(), flight);
-        if (seatEntityOptional.isEmpty() || !seatEntityOptional.get().isAvailable()) {
+        if (seatEntityOptional.isEmpty() || !seatEntityOptional.get().getAvailable()) {
             throw new RuntimeException("seat not available");
         }
         SeatEntity seat = seatEntityOptional.get();
