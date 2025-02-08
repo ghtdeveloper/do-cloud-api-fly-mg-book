@@ -31,10 +31,6 @@ public class CreateUserDto implements Serializable {
     @PositiveOrZero(message = "roleId must be a non-negative integer")
     private Long roleId;
 
-    @NotNull(message = "consultingRoomId cannot be null")
-    @PositiveOrZero(message = "consultingRoomId must be a non-negative integer")
-    private Long consultingRoomId;
-
     @NotNull(message = "activeStatus cannot be null")
     @ActiveStatusValid
     private Character activeStatus;
@@ -42,8 +38,4 @@ public class CreateUserDto implements Serializable {
     @NotNull(message = "password cannot be null")
     @Size(min = 6, max = 16, message = "password must be between 6 and 16 characters")
     private String password;
-
-    @NotNull(message = "countryId cannot be null")
-    @PositiveOrZero(message = "countryId must be a non-negative integer")
-    private Long countryId;
 }

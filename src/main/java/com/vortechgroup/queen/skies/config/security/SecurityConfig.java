@@ -34,7 +34,7 @@ public class SecurityConfig {
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .authorizeHttpRequests(auth -> auth.requestMatchers("api/v1.0/fly/auth/login/**").permitAll())
-                .authorizeHttpRequests(auth -> auth.requestMatchers("swagger-ui/**").authenticated())
+                .authorizeHttpRequests(auth -> auth.requestMatchers("swagger-ui/**").permitAll())
                 .authorizeHttpRequests(auth -> auth.requestMatchers("api/v1.0/api/fly/**").authenticated().anyRequest().authenticated());
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();

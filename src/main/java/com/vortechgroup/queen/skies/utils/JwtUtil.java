@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Base64;
 import java.util.Date;
 import java.util.Optional;
 import java.util.function.Function;
@@ -24,14 +25,16 @@ public class JwtUtil implements Serializable {
     @Value("${jwt.expirationMinutes}")
     private long expirationMinutes;
 
+    private byte[] getSigningKey() {
+        return Base64.getDecoder().decode(secret);
+    }
+
     public String generateToken(UserDetails userDetails) {
-        Date now = new Date();
-        Date expirationDate = new Date(now.getTime() + expirationMinutes * 60 * 1000);
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
-                .setIssuedAt(now)
-                .setExpiration(expirationDate)
-                .signWith(Keys.hmacShaKeyFor(secret.getBytes()),SignatureAlgorithm.HS512)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + expirationMinutes * 60 * 1000))
+                .signWith(Keys.hmacShaKeyFor(getSigningKey()), SignatureAlgorithm.HS512)
                 .compact();
     }
 
@@ -40,9 +43,9 @@ public class JwtUtil implements Serializable {
         return claimsResolver.apply(claims);
     }
 
-    private Claims extractAllClaims(String token) throws ExpiredJwtException {
+    private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
-                .setSigningKey(Keys.hmacShaKeyFor(secret.getBytes()))
+                .setSigningKey(Keys.hmacShaKeyFor(getSigningKey()))
                 .build()
                 .parseClaimsJws(token)
                 .getBody();

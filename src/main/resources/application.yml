@@ -44,5 +44,5 @@ jpa:
       format_sql: true
   show-sql: false
 jwt:
-  expirationMinutes: ${JWT_EXPIRATION_MIN:3300000} #Config to expire every 55 minutes (milliseconds)
-  secret: ${JWT_SECRET:Happy_debugging}
+   expirationMinutes: ${JWT_EXPIRATION_MIN:3300000} #Config to expire every 55 minutes (milliseconds)
+   secret: ${JWT_SECRET:afagegetrttryuyuiaofapcakfueotrrititetrptofakfieutek85afkafkLkcakfeuttepiy}

@@ -24,7 +24,7 @@ public record UserController(UserService userService) {
 
     @PostMapping(value = "/save")
     @Operation(summary = "Method to save a user", description = "Method to save a user")
-    public ResponseEntity<UserResponseDto> save(@NotNull @RequestHeader(HttpHeaders.AUTHORIZATION) String token, @Valid @RequestBody CreateUserDto createUserDto) {
+    public ResponseEntity<UserResponseDto> save(@RequestBody CreateUserDto createUserDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.userService.save(createUserDto));
     }
 
