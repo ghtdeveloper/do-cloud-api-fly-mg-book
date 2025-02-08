@@ -1,0 +1,48 @@
+api:
+  info:
+    title: do-cloud-api-fly-mg-book
+    description: API for Flight Booking Management System
+    version: v1.0
+    contact:
+      name: do-cloud-api-fly-mg-book
+      email: p/a
+      url:  p/a
+    license:
+      name: Apache 2.0
+      url: https://www.apache.org/licenses/LICENSE-2.0
+    termsOfService:  p/a
+  servers:
+    server1:
+      url: http://localhost:${local.server.port}
+      description:
+server:
+  port: ${PORT:8081}
+  error:
+    whitelabel:
+      enabled: false
+spring:
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/myDB:jdbc:postgresql://localhost:5432/fly_mg_Book}
+    password: ${DATASOURCE_PASS:HolaMundo}
+    username: ${DATASOURCE_USER:postgres}
+    hikari:
+      idle-timeout: ${IDLE_TIMEOUT:30000}
+      max-lifetime: ${MAX_LIFETIME:1800000}
+      maximum-pool-size: ${POOL_SIZE:2}
+logging:
+  logback:
+    rollingpolicy:
+      max-history: 7
+      max-file-size: 10MB
+jpa:
+  hibernate:
+    ddl-auto: update
+  properties:
+    hibernate:
+      default_schema: core
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      format_sql: true
+  show-sql: false
+jwt:
+  expirationMinutes: ${JWT_EXPIRATION_MIN:3300000} #Config to expire every 55 minutes (milliseconds)
+  secret: ${JWT_SECRET:Happy_debugging}
