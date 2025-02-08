@@ -14,6 +14,14 @@ import java.io.Serializable;
 @ToString
 public class CreateReservationDto implements Serializable {
 
+    @NotNull(message = "flightNumber cannot be null")
+    @Pattern(regexp = RegexPattern.REGEX_ONLY_LETTERS, message = "flightNumber is invalid")
+    private String flightNumber;
+
+    @NotNull(message = "seatNumber cannot be null")
+    @Pattern(regexp = RegexPattern.REGEX_ONLY_LETTERS, message = "seatNumber is invalid")
+    private String seatNumber;
+
     @NotNull(message = "passengerName cannot be null")
     @Pattern(regexp = RegexPattern.REGEX_ONLY_LETTERS, message = "passengerName is invalid")
     private String passengerName;

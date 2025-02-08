@@ -40,6 +40,7 @@ public class SeatEntity implements TransformFrom<CreateSeatDto, SeatEntity>, ToD
                 .id(this.id)
                 .seatNumber(this.seatNumber)
                 .available(this.available)
+                .flightResponseDto(this.flight.toDto())
                 .build();
     }
 

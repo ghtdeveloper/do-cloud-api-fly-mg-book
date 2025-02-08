@@ -1,11 +1,7 @@
 package com.vortechgroup.queen.skies.domain;
 
 import com.vortechgroup.queen.skies.dto.request.CreateReservationDto;
-import com.vortechgroup.queen.skies.dto.request.CreateSeatDto;
-import com.vortechgroup.queen.skies.dto.request.UpdateReservationDto;
-import com.vortechgroup.queen.skies.dto.request.UpdateSeatDto;
 import com.vortechgroup.queen.skies.dto.response.ReservationResponseDto;
-import com.vortechgroup.queen.skies.dto.response.SeatResponseDto;
 import com.vortechgroup.queen.skies.utils.ToDTO;
 import com.vortechgroup.queen.skies.utils.TransformFrom;
 import jakarta.persistence.*;
@@ -56,16 +52,11 @@ public class ReservationEntity implements TransformFrom<CreateReservationDto, Re
     @Override
     public ReservationEntity from(CreateReservationDto createReservationDto) {
         return ReservationEntity.builder()
+                .flight(FlightEntity.builder().flightNumber(createReservationDto.getFlightNumber()).build())
+                .seat(SeatEntity.builder().seatNumber(createReservationDto.getSeatNumber()).build())
                 .passengerName(createReservationDto.getPassengerName())
                 .reservationCode(createReservationDto.getReservationCode())
                 .build();
     }
 
-    public ReservationEntity from(UpdateReservationDto updateReservationDto) {
-        return ReservationEntity.builder()
-                .id(updateReservationDto.getId())
-                .passengerName(updateReservationDto.getPassengerName())
-                .reservationCode(updateReservationDto.getReservationCode())
-                .build();
-    }
 }

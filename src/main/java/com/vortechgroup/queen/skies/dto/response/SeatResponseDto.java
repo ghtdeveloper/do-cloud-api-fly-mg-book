@@ -13,5 +13,6 @@ import lombok.*;
 public class SeatResponseDto {
     private Long id;
     private String seatNumber;
+    private FlightResponseDto flightResponseDto;
     private Boolean available;
 }
