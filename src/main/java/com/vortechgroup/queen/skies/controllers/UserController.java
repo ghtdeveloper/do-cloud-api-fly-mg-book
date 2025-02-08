@@ -22,9 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "api/v1.0/api/fly/user", produces = MediaType.APPLICATION_JSON_VALUE)
-public class UserController {
-
-    private final UserService userService;
+public record UserController(UserService userService) {
 
     @PostMapping(value = "/save")
     @Operation(summary = "Method to save a user", description = "Method to save a user")

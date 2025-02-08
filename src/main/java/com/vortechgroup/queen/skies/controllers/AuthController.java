@@ -24,11 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "api/v1.0/fly/auth/login", produces = MediaType.APPLICATION_JSON_VALUE)
-public class AuthController {
-
-    private final AuthenticationManager authenticationManager;
-    private final JwtUserDetailsService jwtUserDetailsService;
-    private final JwtUtil jwtUtil;
+public record AuthController(AuthenticationManager authenticationManager, JwtUserDetailsService jwtUserDetailsService,JwtUtil jwtUtil) {
 
     @PostMapping(value = "/sign")
     @Operation(summary = "Performs the authentication process", description = "Performs the authentication process (gets the token)")

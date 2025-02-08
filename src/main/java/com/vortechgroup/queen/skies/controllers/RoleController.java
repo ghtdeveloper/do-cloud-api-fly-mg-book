@@ -22,10 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "api/v1.0/api/fly/roles", produces = MediaType.APPLICATION_JSON_VALUE)
-public class RoleController {
-
-    private final RoleService roleService;
-
+public record RoleController(RoleService roleService) {
     @PostMapping(value = "/save")
     @Operation(summary = "Method to save a role", description = "Method to save a role")
     public ResponseEntity<RoleResponseDto> save(@NotNull @RequestHeader(HttpHeaders.AUTHORIZATION) String token, @Valid @RequestBody CreateRoleDto createRoleDto) {
