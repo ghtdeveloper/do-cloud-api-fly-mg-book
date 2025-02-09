@@ -48,6 +48,4 @@ public record SeatController(SeatService seatService) {
         return ResponseEntity.status(HttpStatus.OK).body(this.seatService.findByFlightNumber(flightNumber));
     }
 
-
-
 }
