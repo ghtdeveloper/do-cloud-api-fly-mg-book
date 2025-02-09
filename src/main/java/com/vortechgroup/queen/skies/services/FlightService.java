@@ -2,7 +2,6 @@ package com.vortechgroup.queen.skies.services;
 
 import com.vortechgroup.queen.skies.domain.FlightEntity;
 import com.vortechgroup.queen.skies.dto.request.CreateFlightDto;
-import com.vortechgroup.queen.skies.dto.request.UpdateFlightDto;
 import com.vortechgroup.queen.skies.dto.response.FlightCollectionResponse;
 import com.vortechgroup.queen.skies.dto.response.FlightResponseDto;
 import com.vortechgroup.queen.skies.repository.FlightRepository;
@@ -44,14 +43,6 @@ public class FlightService {
     public FlightResponseDto save(CreateFlightDto createFlightDto) {
         FlightEntity flight = FlightEntity.builder().build().from(createFlightDto);
         return flightRepository.save(flight).toDto();
-    }
-
-    public FlightResponseDto update(UpdateFlightDto updateFlightDto) {
-        if (findById(updateFlightDto.getId()) != null) {
-            FlightEntity flight = FlightEntity.builder().build().from(updateFlightDto);
-            return flightRepository.save(flight).toDto();
-        }
-        return null;
     }
 
 }

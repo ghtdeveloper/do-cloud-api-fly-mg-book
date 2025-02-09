@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "api/v1.0/api/fly/roles", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "api/v1.0/fly/roles", produces = MediaType.APPLICATION_JSON_VALUE)
 public record RoleController(RoleService roleService) {
     @PostMapping(value = "/save")
     @Operation(summary = "Method to save a role", description = "Method to save a role")

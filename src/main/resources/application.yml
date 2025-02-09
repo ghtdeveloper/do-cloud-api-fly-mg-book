@@ -36,7 +36,7 @@ logging:
       max-file-size: 10MB
 jpa:
   hibernate:
-    ddl-auto: update
+    ddl-auto: create
   properties:
     hibernate:
       default_schema: core
@@ -45,4 +45,4 @@ jpa:
   show-sql: false
 jwt:
    expirationMinutes: ${JWT_EXPIRATION_MIN:3300000} #Config to expire every 55 minutes (milliseconds)
-   secret: ${JWT_SECRET:afagegetrttryuyuiaofapcakfueotrrititetrptofakfieutek85afkafkLkcakfeuttepiy}
+   secret: ${JWT_SECRET:M63IFtBdH6g/YCjIEdUPvJ+Lr1afBgTj0gp3RqDq5p7Mj+/hqeKKsLb73CK1AwIkwSmevfw8Cw1NgnHmS9BpAuQKjh3NyLcoQY+xnY/dJ7NS5Ey9NV1kG+BdVmyJPheg1gbNYJ5wdRF4RlaBdxj9MgD1jekHTQcTCy2t2gUMbdbP34WqmXXcMrm5iIVyO/QgkSm8hux6X/kGc6D1+gavsManKSfHMOAiqHzRq21GIoBNBns/4JidAIKL6Z6VhGYkfwGfVkVP9GdksDtMlOp16LKTu3Iw+nUiFwUXNoYWlO/lejn4NKVzUdlAKXJtAtWyTQoKhD7UX91qFzjxi2J+QepeWtxabsKvCe/MFG4iiTwnQXsmJGodZQ==}

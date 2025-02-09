@@ -20,7 +20,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "api/v1.0/api/fly/reservations", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "api/v1.0/fly/reservations", produces = MediaType.APPLICATION_JSON_VALUE)
 public record ReservationController(ReservationService reservationService) {
 
     @PostMapping(value = "/save")
@@ -49,7 +49,7 @@ public record ReservationController(ReservationService reservationService) {
         return ResponseEntity.status(HttpStatus.OK).body(this.reservationService.findAll(page, pageSize));
     }
 
-    @GetMapping(value = "/{flightNumber}")
+    @GetMapping(value = "/filter/{flightNumber}")
     @Operation(summary = "Search by flight number", description = "Search by flight number")
     public ResponseEntity<List<ReservationResponseDto>> findByFlightNumber(@NotNull @RequestHeader(HttpHeaders.AUTHORIZATION) String token, @NotNull @PathVariable(name = "flightNumber") String flightNumber) {
         return ResponseEntity.status(HttpStatus.OK).body(this.reservationService.findReservationByFlightNumber(flightNumber));

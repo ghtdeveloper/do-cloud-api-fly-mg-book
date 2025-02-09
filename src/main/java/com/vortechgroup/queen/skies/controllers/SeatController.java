@@ -1,10 +1,12 @@
 package com.vortechgroup.queen.skies.controllers;
 
 
+import com.vortechgroup.queen.skies.dto.request.CreateSeatDto;
 import com.vortechgroup.queen.skies.dto.response.SeatCollectionResponse;
 import com.vortechgroup.queen.skies.dto.response.SeatResponseDto;
 import com.vortechgroup.queen.skies.services.SeatService;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
@@ -16,8 +18,15 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "api/v1.0/api/fly/seats", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "api/v1.0/fly/seats", produces = MediaType.APPLICATION_JSON_VALUE)
 public record SeatController(SeatService seatService) {
+
+
+    @PostMapping(value = "/save")
+    @Operation(summary = "Method to save a seat", description = "Method to save a seat")
+    public ResponseEntity<SeatResponseDto> save(@NotNull @RequestHeader(HttpHeaders.AUTHORIZATION) String token, @Valid @RequestBody CreateSeatDto createSeatDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.seatService.save(createSeatDto));
+    }
 
     @GetMapping(value = "/{id}")
     @Operation(summary = "Search by seat id", description = "Search by seat id")
@@ -33,10 +42,12 @@ public record SeatController(SeatService seatService) {
         return ResponseEntity.status(HttpStatus.OK).body(this.seatService.findAll(page, pageSize));
     }
 
-    @GetMapping(value = "/{flightNumber}")
+    @GetMapping(value = "/filter/{flightNumber}")
     @Operation(summary = "Search seats by flightNumber", description = "Search seats by flightNumber")
     public ResponseEntity<SeatResponseDto> findAll(@NotNull @RequestHeader(HttpHeaders.AUTHORIZATION) String token, @NotNull @PathVariable(name = "flightNumber") String flightNumber) {
         return ResponseEntity.status(HttpStatus.OK).body(this.seatService.findByFlightNumber(flightNumber));
     }
+
+
 
 }

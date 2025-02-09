@@ -18,6 +18,9 @@ import java.io.Serializable;
 public class CreateSeatDto implements Serializable {
 
     @NotNull(message = "seatNumber cannot be null")
-    @Pattern(regexp = RegexPattern.REGEX_ONLY_LETTERS, message = "seatNumber is invalid")
     private String seatNumber;
+
+    private Long flightId;
+
+    private Boolean isAvailable;
 }

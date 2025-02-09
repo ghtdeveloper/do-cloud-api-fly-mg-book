@@ -2,6 +2,7 @@ package com.vortechgroup.queen.skies.services;
 
 import com.vortechgroup.queen.skies.domain.FlightEntity;
 import com.vortechgroup.queen.skies.domain.SeatEntity;
+import com.vortechgroup.queen.skies.dto.request.CreateSeatDto;
 import com.vortechgroup.queen.skies.dto.response.SeatCollectionResponse;
 import com.vortechgroup.queen.skies.dto.response.SeatResponseDto;
 import com.vortechgroup.queen.skies.repository.SeatRepository;
@@ -33,6 +34,11 @@ public class SeatService {
                 .totalElements(seatEntities.getTotalElements())
                 .seatResponseDtos(seatEntities.stream().map(SeatEntity::toDto).collect(Collectors.toList()))
                 .build();
+    }
+
+    public SeatResponseDto save(CreateSeatDto createSeatDto){
+        SeatEntity seatEntity = SeatEntity.builder().build().from(createSeatDto);
+        return seatRepository.save(seatEntity).toDto();
     }
 
     public SeatResponseDto findByFlightNumber(String flightNumber) {

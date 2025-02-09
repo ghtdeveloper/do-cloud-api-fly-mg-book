@@ -21,7 +21,6 @@ import java.time.LocalDate;
 public class CreateFlightDto implements Serializable {
 
     @NotNull(message = "flightNumber cannot be null")
-    @Pattern(regexp = RegexPattern.REGEX_ONLY_LETTERS, message = "flightNumber is invalid")
     private String flightNumber;
 
     @NotNull(message = "origin cannot be null")
@@ -33,11 +32,9 @@ public class CreateFlightDto implements Serializable {
     private String destination;
 
     @NotNull(message = "departureTime cannot be null")
-    @Pattern(regexp = RegexPattern.REGEX_ONLY_LETTERS, message = "departureTime is invalid")
     private String departureTime;
 
     @NotNull(message = "arrivalTime cannot be null")
-    @Pattern(regexp = RegexPattern.REGEX_ONLY_LETTERS, message = "arrivalTime is invalid")
     private String arrivalTime;
 
     @NotNull(message = "activeStatus cannot be null")

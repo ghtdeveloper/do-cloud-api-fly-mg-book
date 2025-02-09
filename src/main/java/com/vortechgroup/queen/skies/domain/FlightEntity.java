@@ -1,7 +1,6 @@
 package com.vortechgroup.queen.skies.domain;
 
 import com.vortechgroup.queen.skies.dto.request.CreateFlightDto;
-import com.vortechgroup.queen.skies.dto.request.UpdateFlightDto;
 import com.vortechgroup.queen.skies.dto.response.FlightResponseDto;
 import com.vortechgroup.queen.skies.utils.ToDTO;
 import com.vortechgroup.queen.skies.utils.TransformFrom;
@@ -74,15 +73,6 @@ public class FlightEntity implements TransformFrom<CreateFlightDto, FlightEntity
                 .arrivalTime(createFlightDto.getArrivalTime())
                 .activeStatus(createFlightDto.getActiveStatus())
                 .createdOn(LocalDate.now())
-                .build();
-    }
-
-    public FlightEntity from(UpdateFlightDto updateFlightDto) {
-        return FlightEntity.builder()
-                .id(updateFlightDto.getId())
-                .departureTime(updateFlightDto.getDepartureTime())
-                .arrivalTime(updateFlightDto.getArrivalTime())
-                .activeStatus(updateFlightDto.getActiveStatus())
                 .build();
     }
 }

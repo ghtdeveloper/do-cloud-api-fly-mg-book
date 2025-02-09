@@ -24,11 +24,11 @@ public class SeatEntity implements TransformFrom<CreateSeatDto, SeatEntity>, ToD
     @Column(name = "id", updatable = false)
     private Long id;
 
-    @Column(name = "seat_number", updatable = false)
+    @Column(name = "seat_number", unique = true)
     private String seatNumber;
 
     @ManyToOne
-    @JoinColumn(name = "flight_id", nullable = false)
+    @JoinColumn(name = "flight_id", referencedColumnName = "id", nullable = false)
     private FlightEntity flight;
 
     @Column(name = "available", nullable = false)
@@ -48,6 +48,8 @@ public class SeatEntity implements TransformFrom<CreateSeatDto, SeatEntity>, ToD
     public SeatEntity from(CreateSeatDto createSeatDto) {
         return SeatEntity.builder()
                 .seatNumber(createSeatDto.getSeatNumber())
+                .flight(FlightEntity.builder().id(createSeatDto.getFlightId()).build())
+                .available(createSeatDto.getIsAvailable())
                 .build();
     }
 

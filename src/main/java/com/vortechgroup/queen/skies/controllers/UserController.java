@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "api/v1.0/api/fly/users", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "api/v1.0/fly/users", produces = MediaType.APPLICATION_JSON_VALUE)
 public record UserController(UserService userService) {
 
     @PostMapping(value = "/save")
