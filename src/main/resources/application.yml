@@ -36,7 +36,7 @@ logging:
       max-file-size: 10MB
 jpa:
   hibernate:
-    ddl-auto: create
+    ddl-auto: update
   properties:
     hibernate:
       default_schema: core

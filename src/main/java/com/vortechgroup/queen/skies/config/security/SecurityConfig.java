@@ -33,12 +33,22 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
-                .authorizeHttpRequests(auth -> auth.requestMatchers("api/v1.0/fly/auth/login/**").permitAll())
-                .authorizeHttpRequests(auth -> auth.requestMatchers("swagger-ui/**").permitAll())
-                .authorizeHttpRequests(auth -> auth.requestMatchers("api/v1.0/api/fly/**").authenticated().anyRequest().authenticated());
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/v1.0/fly/auth/login/**").permitAll()
+                        .requestMatchers(
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/swagger-ui.html",
+                                "/webjars/**"
+                        ).permitAll()
+                        .requestMatchers("/api/v1.0/api/fly/**").authenticated()
+                        .anyRequest().authenticated()
+                );
+
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
+
 
     @Bean
     public AuthenticationManager authenticationManager(UserDetailsService userDetailsService) {
