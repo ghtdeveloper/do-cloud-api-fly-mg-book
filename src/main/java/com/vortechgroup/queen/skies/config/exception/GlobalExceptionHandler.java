@@ -1,4 +1,4 @@
-package com.vortechgroup.queen.skies.config;
+package com.vortechgroup.queen.skies.config.exception;
 
 
 import com.vortechgroup.queen.skies.dto.response.ExceptionResponse;

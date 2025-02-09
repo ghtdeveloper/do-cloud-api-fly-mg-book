@@ -4,6 +4,7 @@ import com.vortechgroup.queen.skies.domain.FlightEntity;
 import com.vortechgroup.queen.skies.domain.ReservationEntity;
 import com.vortechgroup.queen.skies.domain.SeatEntity;
 import com.vortechgroup.queen.skies.dto.request.CreateReservationDto;
+import com.vortechgroup.queen.skies.dto.request.CreateReservationEvent;
 import com.vortechgroup.queen.skies.dto.response.ReservationCollectionResponse;
 import com.vortechgroup.queen.skies.dto.response.ReservationResponseDto;
 import com.vortechgroup.queen.skies.repository.FlightRepository;
@@ -30,6 +31,7 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final FlightRepository flightRepository;
     private final SeatRepository seatRepository;
+    private final KafkaProducerService kafkaProducerService;
 
     public ReservationResponseDto findById(Long id) {
         return reservationRepository.findById(id).orElseThrow(() -> new NotFoundException("reservation does not exist")).toDto();
@@ -50,18 +52,35 @@ public class ReservationService {
     public ReservationResponseDto save(CreateReservationDto createReservationDto) {
         Optional<FlightEntity> flightEntityOptional = flightRepository.findByFlightNumber(createReservationDto.getFlightNumber());
         if (flightEntityOptional.isEmpty()) {
-            throw new NotFoundException("flight does not exist");
+            throw new NotFoundException("Flight does not exist");
         }
         FlightEntity flight = flightEntityOptional.get();
+
         Optional<SeatEntity> seatEntityOptional = seatRepository.findBySeatNumberAndFlight(createReservationDto.getSeatNumber(), flight);
         if (seatEntityOptional.isEmpty() || !seatEntityOptional.get().getAvailable()) {
-            throw new RuntimeException("seat not available");
+            throw new RuntimeException("Seat not available");
         }
         SeatEntity seat = seatEntityOptional.get();
         seat.setAvailable(false);
         seatRepository.save(seat);
-        ReservationEntity reservation = ReservationEntity.builder().flight(flight).seat(seat).passengerName(createReservationDto.getPassengerName()).reservationCode(createReservationDto.getReservationCode()).build();
-        return reservationRepository.save(reservation).toDto();
+
+        ReservationEntity reservation = ReservationEntity.builder()
+                .flight(flight)
+                .seat(seat)
+                .passengerName(createReservationDto.getPassengerName())
+                .reservationCode(createReservationDto.getReservationCode())
+                .build();
+
+        reservationRepository.save(reservation);
+
+        CreateReservationEvent event = new CreateReservationEvent(
+                reservation.getReservationCode(),
+                flight.getFlightNumber(),
+                seat.getSeatNumber(),
+                reservation.getPassengerName()
+        );
+        kafkaProducerService.sendReservationEvent(event);
+        return reservation.toDto();
     }
 
     @Transactional
